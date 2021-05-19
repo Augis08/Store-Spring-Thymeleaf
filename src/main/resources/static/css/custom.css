@@ -1,0 +1,14 @@
+h2 {
+    font-family: sans-serif;
+    font-size: 1.5em;
+    text-transform: uppercase;
+}
+
+strong {
+    background-color: aqua;
+    font-weight: bold;
+}
+
+p {
+    font-family: "Arial Black", serif;
+}

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/4.6.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+</head>
+<body>
+
+<table class="table-bordered">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Product</th>
+        <th scope="col">Price / unit</th>
+        <th scope="col">Sum price</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Remove from basket</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="product: ${basket}">
+        <td></td>
+        <td th:align="left" th:text="${product.key}"></td>
+        <td th:align="center" th:text="${products.get(product.key).getProductPrice()}"></td>
+        <td th:align="center" th:text="${product.value * products.get(product.key).getProductPrice()}"></td>
+        <td th:align="center" th:text="${product.value}"></td>
+        <td th:align="center">
+            <a th:href="@{/products/basket/remove/{productName}(productName=${product.key})}">
+                <button type="button" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+            </a>
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td th:align="right">Total:</td>
+        <td th:align="center" th:text="${totalPrice} + ' €'"></td>
+        <td th:align="center">
+            <span th:text="${#aggregates.sum(basket.values())}"></span>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<div>
+    <a th:href="@{/products}">
+        <button>Back to store</button>
+    </a>
+</div>
+<div>
+    <a th:href="@{/products/buy}">
+        <button> Buy</button>
+    </a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Store</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/4.6.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+</head>
+<body>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th th:align="center" scope="col">#</th>
+        <th th:align="center" scope="col">Product</th>
+        <th th:align="center" scope="col">Price</th>
+        <th th:align="center" cope="col">Available stock</th>
+        <th th:align="center" scope="col">Desired quantity</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="product: ${products}">
+        <td>
+            <picture>
+                <img th:src="@{'../images/' + ${product.key} + '.png'}" class="img-fluid img-thumbnail" alt=" " style="width: 70px; height: 50px">
+            </picture>
+        </td>
+        <td th:align="left" th:text="${product.key}"></td>
+        <td th:align="center" th:text="${product.value.productPrice}"></td>
+        <td th:align="center" th:text="${product.value.productStock}"></td>
+        <td th:align="center">
+            <input value="1" type="number" th:id="amount" th:name="amount" style="width: 60px">
+        </td>
+        <td th:align="center">
+            <a th:if="${product.value.getProductStock() > 0}" th:href="@{/products/{productName}/{amount}(productName=${product.key}, amount=1)}">
+                <button>Add to basket</button>
+            </a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<div>
+    <a th:href="@{/products/basket}">
+        <button>
+            <i class="fas fa-shopping-bag">
+                <span th:text="${#aggregates.sum(productsBasket.values())}"></span>
+            </i>
+        </button>
+    </a>
+</div>
+
+</body>
+</html>
